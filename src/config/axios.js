@@ -5,6 +5,8 @@ import axios from 'axios'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
 import { Toast } from 'vant'
+import Vue from 'vue';
+import router from '../router'
 axios.defaults.timeout = 30000  // 超时时间
 axios.defaults.withCredentials = true  // 跨域请求，允许保存cookie
 if(process.env.NODE_ENV == "production"){
@@ -34,6 +36,7 @@ axios.interceptors.response.use(data => {
     let code = errMsg.substr(errMsg.indexOf('code') + 5)
     Toast.fail('status code '+code+','+errMsg);
     console.log('响应拦截');
+    // router.push({path:'/500'})
     return Promise.reject(new Error(error))
   })
   

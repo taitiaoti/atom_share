@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 Vue.use(require('vue-wechat-title'))
 
 /* eslint-disable no-new */
-new Vue({
+window.vm = new Vue({
   el: '#app',
   router,
   components: { App },

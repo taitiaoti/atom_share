@@ -5,13 +5,15 @@
                 <van-loading  size='100'/>
             </div>
         </div> -->
-        <div class="swipe-area">
-            <van-swipe>
+        <div class="swipe-area van-hairline--bottom">
+            <van-swipe  :autoplay="3000">
                 <van-swipe-item v-for="(image, index) in detail.images" :key="index">
                     <img v-lazy="image" width="100%"  @click="swipeImgClick()"/>
                 </van-swipe-item>
             </van-swipe>
+            <div class="van-hairline--bottom"></div>
         </div>
+        
         <div class="product-intro">
             <h2 class="product-name">{{detail.productName}}</h2>
             <div class="price-wrapper">
@@ -26,6 +28,7 @@
             <div class="jd-price-wrapper">
                 <div class="jd-left">
                     <div class="jd-text-price">
+                        <span class="jd-logo"></span>
                         <span class="jd-price">￥{{detail.jdPrice}}</span>
                     </div>
                     <div class="jump-jd" @click="jumpJdDetail(detail.jdUrl)" v-if="detail.type == '3'">
@@ -65,17 +68,21 @@
                     backgroundSize: "100% 100%",
                 },
                 baseUrl:"http://qiniu.edawtech.com/",
-                logoIcon: ''
+                logoIcon: require('../assets/vip.png')
             }
         },
         created(){
             let productNo = this.getQueryString('productNo');
             let appId = this.getQueryString('appId');
             let uid = this.getQueryString('uid');
+
             // let uid = '921948';
             // let productNo = '201810032037024650';
+
+            // let uid = '922789';
+            // let productNo = '201811051422109099';
             // let appId = 'dudu';
-            this.filterIcon(appId);
+            // this.filterIcon(appId);
             this.getDetail(productNo,appId,uid);
         },
         methods: {
@@ -119,20 +126,20 @@
             },
             getHeight(rate){
                 this.$nextTick(() => {
-                    if(this.detail.type == 3){
-                        this.$refs.desc.style.transformOrigin="0px 0px 0px";
-                        let rate = bcdiv((document.body.clientWidth * 0.5), 320, 6)
-                        this.$refs.desc.style.transform="scale("+rate+")"; 
-                        let descHeight = this.$refs.desc.clientHeight;
-                        let titleHeight = this.$refs.title.clientHeight;
-                        this.$refs.descwrapper.style.height = (descHeight*rate+titleHeight)+'px';
-                        console.log(descHeight);
-                        if(descHeight <= 500){ //没获取到高度时重新执行
-                            setTimeout(() => {
-                                this.getHeight();
-                            },1000)
-                        }
-                    }
+                    // if(this.detail.type == 3){
+                    //     this.$refs.desc.style.transformOrigin="0px 0px 0px";
+                    //     let rate = bcdiv((document.body.clientWidth * 0.5), 320, 6)
+                    //     this.$refs.desc.style.transform="scale("+rate+")"; 
+                    //     let descHeight = this.$refs.desc.clientHeight;
+                    //     let titleHeight = this.$refs.title.clientHeight;
+                    //     this.$refs.descwrapper.style.height = (descHeight*rate+titleHeight)+'px';
+                    //     console.log(descHeight,'ds');
+                    //     if(descHeight <= 500){ //没获取到高度时重新执行
+                    //         setTimeout(() => {
+                    //             this.getHeight();
+                    //         },1000)
+                    //     }
+                    // }
                 });
             },
             swipeImgClick(){
@@ -151,14 +158,14 @@
             convertNumber(val){
                 return Number(val)
             },
-            filterIcon(val){
-                let iconMap = {
-                    'jytx': require('../assets/jy-icon.png'),
-                    'dudu': require('../assets/logo-icon.png'),
-                    'dingdang': require('../assets/dingdang-icon.png')
-                }
-                this.logoIcon = iconMap[val];
-            },
+            // filterIcon(val){
+            //     let iconMap = {
+            //         'jytx': require('../assets/jy-icon.png'),
+            //         'dudu': require('../assets/logo-icon.png'),
+            //         'dingdang': require('../assets/dingdang-icon.png')
+            //     }
+            //     // this.logoIcon = iconMap[val];
+            // },
             jumpJdDetail(url){
                 window.open(url);
             },
@@ -234,16 +241,21 @@
                     align-items: center;
                     .jd-text-price{
                         display: inline-block;
-                        width: 175px;
-                        text-align: right;
+                        // width: 175px;
+                        // text-align: right;
                         // .jd-text{
                         //     font-size: 30px;
                         //     color: #82868b;
                         // }
+                        .jd-logo{
+                            display: inline-block;
+                            width: 76px;
+                            height: 32px;
+                        }
                         .jd-price{
                             font-size: 32px;
                             color: #96989b;
-                            text-decoration:line-through;
+                            // text-decoration:line-through;
                         }
                     }
                     .jump-jd{
@@ -297,6 +309,22 @@
                 // font-size: 24px; 
                 // line-height: 2;
                 width: 100%;
+                table{
+                    width: 100%;
+                    tbody{
+                        width: 100%;
+                        tr{
+                            width: 100%;
+                            td{
+                                width: 100%;
+                                img{
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+                
             }
             .clearfix:after {
                 content: '.';
