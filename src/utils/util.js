@@ -46,3 +46,12 @@ export const bcdiv = (num1, num2,s) => {
      ret=(baseNum3 / baseNum4) * Math.pow(10, baseNum2 - baseNum1);
       return bcFixed(ret,s);
   };
+// 截取浏览器搜索参数
+export function getQueryString(name){
+  var reg =new RegExp('(^|&)'+name+'=([^&]*)(&|$)','i');
+  var r = window.location.search.substr(1).match(reg);
+  if(r !=null){
+      return unescape(r[2]);
+  }
+  return null;
+}

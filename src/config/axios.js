@@ -36,7 +36,6 @@ axios.interceptors.response.use(data => {
     let code = errMsg.substr(errMsg.indexOf('code') + 5)
     Toast.fail('status code '+code+','+errMsg);
     console.log('响应拦截');
-    // router.push({path:'/500'})
     return Promise.reject(new Error(error))
   })
   

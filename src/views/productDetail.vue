@@ -6,13 +6,13 @@
             </div>
         </div> -->
         <div class="swipe-area van-hairline--bottom">
-            <van-swipe :autoplay='autoplay'>
-                <van-swipe-item v-for="(video, index) in detail.videos" :key="video">
+            <van-swipe :autoplay='autoplay' class="gift_vant_swiper">
+                <van-swipe-item v-for="(video, index) in detail.videos" :key="index">
                     <video v-if="video" :poster="baseUrl + video + '?vframe/jpg/offset/0'" controls width="100%" class="productImage" x5-playsinline="" playsinline="" webkit-playsinline='' style="background: #000;">
                         <source :src='baseUrl + video' type="video/mp4">
                     </video>
                 </van-swipe-item>
-                <van-swipe-item v-for="(image, index) in detail.images" :key="image">
+                <van-swipe-item v-for="(image, index) in detail.images" :key="index + 1">
                     <img v-lazy="image" width="100%" class="productImage" @click="swipeImgClick()" v-if="image"/>
                 </van-swipe-item>
             </van-swipe>
@@ -68,7 +68,7 @@
 <script>
     import { ImagePreview } from 'vant';
     import { fetchProductDetail,updateImg } from '@/api/product'
-    import { bcdiv } from '@/utils/util'
+    import { bcdiv,getQueryString } from '@/utils/util'
     export default {
         data() {
             return {
@@ -85,17 +85,17 @@
                 screeHeight: 0
             }
         },
+        // http://192.168.0.35:8080/?uid=922789&appId=dudu&productNo=202005081025501898#/
         created(){
-            // let productNo = this.getQueryString('productNo');
-            // let appId = this.getQueryString('appId');
-            // let uid = this.getQueryString('uid');
-
+            let productNo = getQueryString('productNo');
+            let appId = getQueryString('appId');
+            let uid = getQueryString('uid');
             // let productNo = '201810032037024650';
             let screeHeight = document.documentElement.clientHeight || document.body.clientHeight;;     // 屏幕高
             this.screeHeight = screeHeight;
-            let uid = '922789';
-            let productNo = '202003302142238411';
-            let appId = 'dudu';
+            // let uid = '922789';
+            // let productNo = '202003302142238411';
+            // let appId = 'dudu';
             // this.filterIcon(appId);
             this.getDetail(productNo,appId,uid);
         },
@@ -211,14 +211,6 @@
                     images: this.detail.images
                 })
             },
-            getQueryString(name){
-                var reg =new RegExp('(^|&)'+name+'=([^&]*)(&|$)','i');
-                var r = window.location.search.substr(1).match(reg);
-                if(r !=null){
-                    return unescape(r[2]);
-                }
-                return null;
-            },
             convertNumber(val){
                 return Number(val)
             },
@@ -240,41 +232,41 @@
         }
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .productImage{
-        height: 600px;
+        // height: 600px;
     }
     p,h2{
         margin: 0;
     }
     img{
-        vertical-align:bottom;
+        vertical-align:middle;
     }
     .van-swipe__indicators{
-        bottom: 20px;
+        bottom: 10px;
         .van-swipe__indicator{
-            width: 12px;
-            height: 12px;
+            width: 6px;
+            height: 6x;
             border-radius: 50%;
-            margin: 0 6px;
+            margin: 0 3px;
         }
         .van-swipe__indicator--active{
             background-color: #1086ff;
         }
     }
     .product-detail-wrapper{    
-        padding-bottom: 143px;
+        padding-bottom: 71px;
         .swipe-area{
             background-color: #f3f7fb;
         }
         .product-intro{
-            padding: 40px 28px 40px 28px;
+            padding: 20px 14px 20px 14px;
             background-color: #fff;
             .product-name{
-                font-size: 32px;
+                font-size: 16px;
                 color: #333;
                 text-align: left;
-                line-height: 50px;
+                line-height: 25px;
                 margin-bottom: 10px;
             }
             .price-wrapper{
@@ -282,14 +274,16 @@
                 justify-content: space-between;
                 align-items: center;
                 .price-left{
+                    display: flex;
+                    align-items: center;
                     .logo-icon{
-                        width: 86px;
-                        height: 32px;
-                        margin-right: 10px;
+                        width: 43px;
+                        height: 16px;
+                        margin-right: 5px;
                         vertical-align: baseline;
                     }
                     .price{
-                        font-size: 40px;
+                        font-size: 20px;
                         font-weight: bold;
                         color: #f0222f;
                     }
@@ -303,7 +297,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-top:12px;
+                margin-top:6px;
                 .jd-left{
                     display: flex;
                     align-items: center;
@@ -317,13 +311,13 @@
                         // }
                         .jd-logo{
                             display: inline-block;
-                            width: 96px;
-                            height: 32px;
-                            font-size: 12px;
+                            width: 48px;
+                            // height: 16px;
+                            font-size: 14px;
                             color:#82868b;
                         }
                         .jd-price{
-                            font-size: 32px;
+                            font-size: 16px;
                             color: #96989b;
                             // text-decoration:line-through;
                         }
@@ -332,24 +326,24 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        border-radius: 26px;
+                        border-radius: 13px;
                         border: 1Px solid #c0dfff;
                         background-color: #e8f3ff;
-                        margin-left: 26px;
-                        padding: 5px 20px;
+                        margin-left: 13px;
+                        padding: 5px 10px;
                         .jump-text{
-                            font-size: 22px;
+                            font-size: 12px;
                             color: #1086ff;
                         }
                         .arrow-icon{
-                            width: 8px;
-                            height: 14px;
-                            margin-left: 10px;
+                            width: 4px;
+                            height: 7px;
+                            margin-left: 5px;
                         }
                     }
                 }
                 .jd-right{
-                    font-size: 28px;
+                    font-size: 14px;
                     color: #82868b;
                     margin-bottom: 2px;
                 }
@@ -357,7 +351,7 @@
         }
         .line{
             width: 100%;
-            height: 18px;
+            height: 9px;
             background-color: #f0f3fa;
         }
         .description-wrapper{
@@ -366,12 +360,12 @@
             overflow: hidden;
             .title{
                 width: 100%;
-                height: 78px;
-                line-height: 78px;
+                height: 39px;
+                line-height: 39px;
                 background-color: #fff;
                 text-align: center;
                 .title-text{
-                    font-size: 34px;
+                    font-size: 17px;
                     color: #6a6b6d;
                 }
             }
@@ -395,7 +389,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 142px;
+            height: 71px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -404,21 +398,21 @@
             z-index: 998;
             .gasBg{
                 background: linear-gradient(270deg,rgba(241,106,3,1) 0%,rgba(246,190,7,1) 100%);
-                border-radius:100px;
+                border-radius:50px;
             }
             .download-btn{
-                width: 574px;
-                height: 86px;
+                width: 287px;
+                height: 43px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 .download-icon{
-                    width: 40px;
-                    height: 34px;
-                    margin-right: 20px;
+                    width: 20px;
+                    height: 17px;
+                    margin-right: 10px;
                 }
                 .text{
-                    font-size: 32px;
+                    font-size: 16px;
                     color: #fff;
                 }
             }
@@ -432,27 +426,27 @@
         }
     }
     .van-toast--default{
-        width: 300px;
+        width: 150px;
         .van-toast__text{
-            font-size: 30px;
+            font-size: 15px;
         }
     }
     #nprogress .bar{
-        height: 6px;
+        height: 3px;
     }
     .ql-video{
         // height: 800px;
     }
     .refueLing{
         width: 100%;
-        height: 98px;
-        line-height: 98px;
+        height: 49px;
+        line-height: 49px;
         background: #fff;
         color: #222;
-        font-size: 32px;
-        padding: 0 30px;
+        font-size: 16px;
+        padding: 0 15px;
         box-sizing: border-box;
-        border-radius: 0 0 20px 20px;
+        border-radius: 0 0 10px 10px;
         text-align: left;
     }
 </style>

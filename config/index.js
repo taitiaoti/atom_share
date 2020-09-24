@@ -1,9 +1,9 @@
 'use strict'
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
-// var baseUrl = 'http://119.23.26.153:9999'
+// var baseUrl = 'http://192.168.0.39:4090'
 var baseUrl = 'http://route.edawtech.com'
-
+// 
 const path = require('path')
 
 module.exports = {
@@ -19,11 +19,11 @@ module.exports = {
         pathRewrite: {
           '^/shop': '/shop'
         }
-      },
+      }
     },
 
     // Various Dev Server settings
-    host: '192.168.0.201', // can be overwritten by process.env.HOST
+    host: '192.168.0.35', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
